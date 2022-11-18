@@ -16,6 +16,8 @@ import re
 from unidecode import unidecode
 from phonemizer import phonemize
 import pyopenjtalk
+from text.japanese import japanese_to_romaji_with_accent, japanese_to_ipa, japanese_to_ipa2, japanese_to_ipa3
+from text.korean import latin_to_hangul, number_to_hangul, divide_hangul, korean_to_lazy_ipa, korean_to_ipa
 
 # Regular expression matching whitespace:
 _whitespace_re = re.compile(r'\s+')
