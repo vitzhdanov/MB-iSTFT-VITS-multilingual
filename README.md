@@ -43,7 +43,7 @@ python preprocess.py --text_index 1 --filelists path/to/filelist_train.txt path/
 
 If your speech file is either not `22050Hz / Mono / PCM-16`, the you should resample your .wav file first. 
 ```sh
-python convert_to_22050.py --in_path path/to/original_wav_file --out_path path/to/output_wav_file
+python convert_to_22050.py --in_path path/to/original_wav_dir/ --out_path path/to/output_wav_dir/
 ```
 
 ## Build monotonic alignment search
@@ -63,15 +63,15 @@ python setup.py build_ext --inplace
 | MS-iSTFT-VITS | ```"subbands": 4,```<br>```"ms_istft_vits": true, ```<br>``` "upsample_rates": [4,4], ``` | ljs_ms_istft_vits.json |
 
 For tutorial, check `config/tsukuyomi_chan.json` for more examples
-- If you have done preprocessing, set "cleaned_text" to true in ```config.json```
-- Select same text_cleaners you used in preprocessing
+- If you have done preprocessing, set "cleaned_text" to true. 
+- Change `training_files` and `validation_files` to the path of preprocessed manifest files. 
+- Select same `text_cleaners` you used in preprocessing step. 
 
 ## Train
 
-In the case of training MB-iSTFT-VITS with Japanese tutorial corpus, run the following script
+In the case of training MB-iSTFT-VITS with Japanese tutorial corpus, run the following script. Resume training from lastest checkpoint is automatic.
 ```sh
-python train_latest.py -c configs/tsukuyomi_chan.json -m tsukuyomi_saved
-
+python train_latest.py -c configs/tsukuyomi_chan.json -m tsukuyomi
 ```
 
 After the training, you can check inference audio using [inference.ipynb](inference.ipynb)
