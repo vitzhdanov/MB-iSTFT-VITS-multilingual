@@ -4,15 +4,10 @@
 Defines the set of symbols used in text input to the model.
 '''
 _pad        = '_'
-_punctuation = ';:,.!?¡¿—…"«»“” '
+_punctuation = ';:,.!?¡¿—…"«»“” -—()[]{}\'’'
 _letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzㄱㄴㄷㄹㅁㅂㅅㅇㅈㅊㅋㅌㅍㅎㄲㄸㅃㅆㅉㅏㅓㅗㅜㅡㅣㅐㅔ'
-_letters_ipa = "ɑɐɒæɓʙβɔɕçɗɖðʤəɘɚɛɜɝɞɟʄɡɠɢʛɦɧħɥʜɨɪʝɭɬɫɮʟɱɯɰŋɳɲɴøɵɸθœɶʘɹɺɾɻʀʁɽʂʃʈʧʉʊʋⱱʌɣɤʍχʎʏʑʐʒʔʡʕʢǀǁǂǃˈˌːˑʼʴʰʱʲʷˠˤ˞↓↑→↗↘'̩'ᵻ"
+_letters_ipa = 'hʉ̥jʐːd͡eorpʔɣbuʲɡɕʙmʑʕɵlvka̩nʊɨˑiɑ̠tɛɐzʂɫsəæɪxf‿ˈ'
 
-'''# korean_cleaners
-_pad        = '_'
-_punctuation = ',.!?…~'
-_letters = 'ㄱㄴㄷㄹㅁㅂㅅㅇㅈㅊㅋㅌㅍㅎㄲㄸㅃㅆㅉㅏㅓㅗㅜㅡㅣㅐㅔ '
-'''
 
 # Export all symbols:
 symbols = [_pad] + list(_punctuation) + list(_letters) + list(_letters_ipa)

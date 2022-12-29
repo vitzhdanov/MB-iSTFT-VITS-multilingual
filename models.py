@@ -588,7 +588,7 @@ class SynthesizerTrn(nn.Module):
     gen_istft_n_fft,
     gen_istft_hop_size,
     n_speakers=0,
-    gin_channels=0,
+    gin_channels=21,
     use_sdp=False,
     ms_istft_vits=False,
     mb_istft_vits = False,
@@ -653,13 +653,11 @@ class SynthesizerTrn(nn.Module):
       self.emb_g = nn.Embedding(n_speakers, gin_channels)
 
   def forward(self, x, x_lengths, y, y_lengths, sid=None):
-
     x, m_p, logs_p, x_mask = self.enc_p(x, x_lengths)
     if self.n_speakers > 0:
       g = self.emb_g(sid).unsqueeze(-1) # [b, h, 1]
     else:
       g = None
-
     z, m_q, logs_q, y_mask = self.enc_q(y, y_lengths, g=g)
     z_p = self.flow(z, y_mask, g=g)
 

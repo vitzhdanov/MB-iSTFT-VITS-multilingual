@@ -59,8 +59,11 @@ class TextAudioLoader(torch.utils.data.Dataset):
         # separate filename and text
         audiopath, text = audiopath_and_text[0], audiopath_and_text[1]
         text = self.get_text(text)
-        spec, wav = self.get_audio(audiopath)
-        return (text, spec, wav)
+        res = self.get_audio(audiopath)
+
+        if res:
+            spec, wav = res
+            return (text, spec, wav)
 
     def get_audio(self, filename):
         audio, sampling_rate = load_wav_to_torch(filename)
@@ -70,15 +73,20 @@ class TextAudioLoader(torch.utils.data.Dataset):
         audio_norm = audio / self.max_wav_value
         audio_norm = audio_norm.unsqueeze(0)
         spec_filename = filename.replace(".wav", ".spec.pt")
-        if os.path.exists(spec_filename):
-            spec = torch.load(spec_filename)
-        else:
-            spec = spectrogram_torch(audio_norm, self.filter_length,
-                self.sampling_rate, self.hop_length, self.win_length,
-                center=False)
-            spec = torch.squeeze(spec, 0)
-            torch.save(spec, spec_filename)
-        return spec, audio_norm
+        try:
+            if os.path.exists(spec_filename):
+
+                spec = torch.load(spec_filename)
+            else:
+                spec = spectrogram_torch(audio_norm, self.filter_length,
+                    self.sampling_rate, self.hop_length, self.win_length,
+                    center=False)
+                spec = torch.squeeze(spec, 0)
+                torch.save(spec, spec_filename)
+            return spec, audio_norm
+        except:
+            print("MISTAKE WITH FILE - ", spec_filename)
+
 
     def get_text(self, text):
         if self.cleaned_text:

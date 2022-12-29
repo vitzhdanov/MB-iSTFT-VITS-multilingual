@@ -73,6 +73,14 @@ def convert_to_ascii(text):
   return unidecode(text)
 
 
+def russian_cleaners(text):
+  '''Pipeline for Russian text'''
+  text = lowercase(text)
+  text = expand_abbreviations(text)
+  phonemes = collapse_whitespace(text)
+  return phonemes
+
+
 def basic_cleaners(text):
   '''Basic pipeline that lowercases and collapses whitespace without transliteration.'''
   text = lowercase(text)
